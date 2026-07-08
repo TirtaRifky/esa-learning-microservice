@@ -137,6 +137,19 @@ services:
     networks:
     - app-network
     restart: on-failure
+  status-gateway:
+    build: ./services/status-gateway
+    depends_on:
+    - loan-core
+    - audit
+    environment:
+    - LOAN_CORE_URL=http://loan-core:3000
+    - AUDIT_URL=http://audit:3010
+    ports:
+    - 3020:3020
+    networks:
+    - app-network
+    restart: on-failure
 volumes:
   pg_loan_core_data: null
   pg_kyc_data: null
